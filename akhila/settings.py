@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
+    'corsheaders',
     'users',
     'products',
     'carts',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,6 +82,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'akhila.wsgi.application'
 AUTH_USER_MODEL = 'users.User'
 
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://preview--drape-and-dash.lovable.app",
+#     # You can add more origins if needed
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database
