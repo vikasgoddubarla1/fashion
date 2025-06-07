@@ -12,19 +12,19 @@ class UserRetriveSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('id', 'firstname', 'lastname', 'email', 'profile_photo', 'userAddresses')
+        fields = ('id', 'first_name', 'last_name', 'email', 'profile_photo', 'userAddresses')
 
 class UserListUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'firstname', 'lastname', 'email', 'profile_photo')
+        fields = ('id', 'first_name', 'last_name', 'email', 'profile_photo')
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
     class Meta:
         model = User
-        fields = ('id', 'firstname', 'lastname', 'email', 'password', 'confirm_password')
+        fields = ('id', 'first_name', 'last_name', 'email', 'password', 'confirm_password')
         
     def validate(self, data):
         if data['password'] != data['confirm_password']:

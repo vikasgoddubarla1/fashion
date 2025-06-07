@@ -21,15 +21,14 @@ def profile_photo(instance, filename):
 
 #------------------------------- BASE USER MANAGER FOR CREATE CUSTOM USER AND SUPER USER -----------------------
 class MyUserManager(BaseUserManager):
-    def create_user(self, firstname, lastname, username, email, password=None, is_admin=False, is_customer=False, is_active=True, is_staff=False):
+    def create_user(self, first_name, last_name, email, password=None, is_admin=False, is_customer=False, is_active=True, is_staff=False):
         if not email:
             raise ValueError("Users must have an email address")
 
         user = self.model(
             email=self.normalize_email(email),
-            firstname = firstname,
-            lastname = lastname,
-            username = username,
+            first_name = first_name,
+            last_name = last_name,
             password = password,
             is_admin = is_admin,
             is_customer = is_customer,
@@ -40,11 +39,11 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, firstname, lastname, username, email, password):
+    def create_superuser(self, first_name, last_name, username, email, password):
         user = self.create_user(
             email=self.normalize_email(email),
-            firstname = firstname,
-            lastname = lastname,
+            first_name = first_name,
+            last_name = last_name,
             username = username,
         )
         user.is_admin = True
@@ -57,8 +56,8 @@ class MyUserManager(BaseUserManager):
 
 #---------------------------- ABSTRACT BASE USER USER MODEL ----------------------------------------------
 class User(AbstractBaseUser):
-    firstname       = models.CharField(max_length=50)
-    lastname        = models.CharField(max_length=50)
+    first_name       = models.CharField(max_length=50)
+    last_name        = models.CharField(max_length=50)
     email           = models.EmailField(max_length=50, unique=True)
     password        = models.CharField(max_length=128, null=True)
     profile_photo = models.FileField(upload_to='profile_photo', blank=True, null=True, validators=[
@@ -79,7 +78,7 @@ class User(AbstractBaseUser):
     objects = MyUserManager()
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['firstname', 'lastname']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
     
 
     def save(self, *args, **kwargs):
@@ -91,7 +90,7 @@ class User(AbstractBaseUser):
         super().save(*args, **kwargs)
     
     def get_full_name(self):
-        return f'{self.firstname} {self.lastname}'
+        return f'{self.first_name} {self.last_name}'
     
     def update_last_login(self):
         self.last_login = timezone.now()
