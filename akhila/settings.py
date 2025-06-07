@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-dwt+e-ei#n#5zh7^qamxkg*q$gvpy-qe@g0uh9$fozdgjka&oc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fashion-9qfi.onrender.com', 'localhost']
 
 
 # Application definition
