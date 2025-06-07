@@ -9,11 +9,11 @@ class CreateProduct(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
-        if not request.user.is_admin:
-            return Response(
-                {"error": "You do not have permission to perform this action"},
-                status=status.HTTP_403_FORBIDDEN
-            )
+        # if not request.user.is_admin:
+        #     return Response(
+        #         {"error": "You do not have permission to perform this action"},
+        #         status=status.HTTP_403_FORBIDDEN
+        #     )
 
         product_files = request.FILES.getlist('files')
 

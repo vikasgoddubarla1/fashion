@@ -42,8 +42,8 @@ class ListUser(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     def list(self, request, *args, **kwargs):
-        if not request.user.is_admin:
-            return Response({"error":'You do not have permission to perform this action'}, status = 500)
+        # if not request.user.is_admin:
+        #     return Response({"error":'You do not have permission to perform this action'}, status = 500)
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         return Response({"userDetails":serializer.data})
@@ -101,6 +101,6 @@ class UserLogout(generics.ListAPIView):
         try:
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response(status=205)
+            return Response({"message":"loggedout successfully!"},status=200)
         except Exception:
             return Response(status=400)
