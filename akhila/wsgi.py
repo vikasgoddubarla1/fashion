@@ -16,7 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'akhila.settings')
 
 # --- BEGIN: Auto-run migrate and createsuperuser ---
 django.setup()
-from django.contrib.auth import get_user_model
+from users.models import User
 from django.core.management import call_command
 
 # Run migrations
@@ -26,9 +26,9 @@ except Exception as e:
     print("Migration Error:", e)
 
 # Create superuser only if not exists
-User = get_user_model()
+# User = get_user_model()
 if not User.objects.filter(email='admin@gmail.com').exists():
-    User.objects.create_superuser('admin@example.com', 'adminpassword')
+    User.objects.create('admin@example.com', 'adminpassword', 'is_admin=True')
 # --- END: Auto-run ---
 
 
